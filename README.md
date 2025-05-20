@@ -1,5 +1,7 @@
 # Michael Okoro — Full-Stack Web Developer Portfolio
 
+![Profile Image](https://drive.google.com/file/d/1l307v8MmQdSnEz1wfZdzh0O7zpYkVIre/view?usp=drive_link)
+
 Welcome to my portfolio repository, showcasing my web development projects, tech stack, and creative endeavors.
 
 ---
