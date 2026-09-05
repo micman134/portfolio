@@ -1,715 +1,547 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Michael Okoro Nnachi · Fullstack Developer</title>
-  <meta name="description" content="Fullstack Web Developer based in Lagos, Nigeria. PHP, React, Python, MySQL and more.">
-  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michael Okoro Nnachi — Fullstack Developer</title>
+<meta name="description" content="Fullstack web developer based in Lagos, Nigeria. PHP, React, Python, MySQL.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+:root{
+  --bg:#14110d;
+  --bg-raised:#1b1712;
+  --bg-panel:#0f0d0a;
+  --line:#332c22;
+  --ink:#f1ece1;
+  --ink-dim:#a89b85;
+  --ink-faint:#786b57;
+  --copper:#c8823a;
+  --copper-dim:#8a5c28;
+  --teal:#4f8f83;
+  --radius-s:6px;
+  --radius-m:10px;
+}
+[data-theme="paper"]{
+  --bg:#f3ede1;
+  --bg-raised:#ffffff;
+  --bg-panel:#e9e0cd;
+  --line:#d8cbb0;
+  --ink:#1d1811;
+  --ink-dim:#5b503f;
+  --ink-faint:#8c8067;
+  --copper:#a35f22;
+  --copper-dim:#c8823a;
+  --teal:#2f6b60;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'IBM Plex Sans',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.65;
+  transition:background .25s,color .2s;
+}
+.mono{font-family:'IBM Plex Mono',monospace;}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
+section{padding:88px 0;}
+h1,h2,h3,h4{font-weight:600;letter-spacing:-0.01em;}
+a{color:inherit;text-decoration:none;}
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg-body);
-      color: var(--text-primary);
-      transition: background 0.3s, color 0.2s;
-      line-height: 1.6;
-    }
+/* ---- nav ---- */
+header{
+  border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:50;
+  background:color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter:blur(6px);
+}
+.nav-row{display:flex;align-items:center;justify-content:space-between;max-width:1040px;margin:0 auto;padding:16px 24px;}
+.nav-mark{font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--ink);}
+.nav-mark b{color:var(--copper);}
+.nav-links{display:flex;gap:26px;list-style:none;align-items:center;}
+.nav-links a{font-size:14px;color:var(--ink-dim);}
+.nav-links a:hover{color:var(--ink);}
+.theme-btn{
+  border:1px solid var(--line);background:transparent;color:var(--ink-dim);
+  font-family:'IBM Plex Mono',monospace;font-size:12px;padding:6px 12px;border-radius:var(--radius-s);cursor:pointer;
+}
+.theme-btn:hover{color:var(--ink);border-color:var(--copper-dim);}
+.burger{display:none;background:none;border:none;color:var(--ink);font-size:22px;cursor:pointer;}
 
-    :root {
-      --bg-body: #f6f9fc;
-      --bg-surface: #ffffff;
-      --bg-surface-alt: #f0f4f9;
-      --bg-card: #ffffff;
-      --border-light: #dce4ec;
-      --text-primary: #0b1a2b;
-      --text-secondary: #2c3e50;
-      --text-muted: #4a5b6e;
-      --accent-blue: #1f6feb;
-      --accent-gold: #d48c2c;
-      --accent-green: #1e9b6e;
-      --shadow-sm: 0 4px 12px rgba(0, 20, 40, 0.05);
-      --shadow-md: 0 8px 24px rgba(0, 20, 40, 0.08);
-      --radius-card: 18px;
-      --radius-btn: 40px;
-    }
+/* ---- hero ---- */
+.hero{display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;min-height:76vh;}
+.kicker{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--copper);margin-bottom:18px;}
+.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.12;margin-bottom:14px;}
+.hero .role{font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--ink-dim);margin-bottom:22px;}
+.hero p.lede{color:var(--ink-dim);max-width:480px;margin-bottom:34px;font-size:16px;}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:12px 24px;border-radius:var(--radius-s);
+  font-size:14px;font-weight:600;cursor:pointer;border:1px solid transparent;
+}
+.btn-fill{background:var(--copper);color:#14110d;}
+.btn-fill:hover{background:var(--ink);}
+.btn-line{border-color:var(--line);color:var(--ink);}
+.btn-line:hover{border-color:var(--copper-dim);}
 
-    [data-theme="dark"] {
-      --bg-body: #0d1421;
-      --bg-surface: #1a2332;
-      --bg-surface-alt: #141e2c;
-      --bg-card: #1e2a3a;
-      --border-light: #2d3e54;
-      --text-primary: #eef3f9;
-      --text-secondary: #cbd8e6;
-      --text-muted: #8fa0b5;
-      --accent-blue: #4b8cff;
-      --accent-gold: #e8a84c;
-      --accent-green: #2ccf92;
-      --shadow-sm: 0 4px 12px rgba(0,0,0,0.4);
-      --shadow-md: 0 8px 24px rgba(0,0,0,0.5);
-    }
+.term{
+  background:var(--bg-panel);border:1px solid var(--line);border-radius:var(--radius-m);
+  overflow:hidden;
+}
+.term-bar{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line);}
+.term-dot{width:9px;height:9px;border-radius:50%;background:var(--line);}
+.term-body{padding:20px 22px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);}
+.term-body .cmd{color:var(--copper);}
+.term-body .out{color:var(--ink);}
+.term-body .line{margin-bottom:10px;}
+.term-body .line:last-child{margin-bottom:0;}
 
-    /* layout */
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+/* ---- section heads ---- */
+.head{max-width:520px;margin-bottom:44px;}
+.head h2{font-size:clamp(24px,3.4vw,32px);margin-bottom:10px;}
+.head p{color:var(--ink-dim);font-size:15px;}
+.idx{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--copper);display:block;margin-bottom:10px;}
 
-    section {
-      padding: 70px 0;
-    }
+/* ---- about ---- */
+.about{display:grid;grid-template-columns:0.85fr 1.15fr;gap:52px;align-items:start;}
+.about-card{background:var(--bg-raised);border:1px solid var(--line);border-radius:var(--radius-m);padding:26px;}
+.about-card .label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-faint);text-transform:none;margin-bottom:6px;}
+.about-card .val{font-size:14px;margin-bottom:16px;}
+.about-card .val:last-child{margin-bottom:0;}
+.about-text p{color:var(--ink-dim);margin-bottom:16px;font-size:15px;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);border:1px solid var(--line);padding:5px 12px;border-radius:20px;}
 
-    h1, h2, h3, h4 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-    }
+/* ---- skills ---- */
+#skills{background:var(--bg-raised);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.skill-list{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;}
+.skill-cell{background:var(--bg-raised);padding:16px 18px;}
+.skill-top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:9px;}
+.skill-top .n{font-family:'IBM Plex Mono',monospace;color:var(--ink-faint);}
+.skill-track{height:3px;background:var(--line);border-radius:2px;overflow:hidden;}
+.skill-fill{height:100%;background:var(--copper);}
 
-    .eyebrow {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent-gold);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .eyebrow::before {
-      content: '';
-      width: 28px;
-      height: 2px;
-      background: var(--accent-gold);
-      display: inline-block;
-    }
+/* ---- portfolio: index list, not cards ---- */
+.proj{border-top:1px solid var(--line);}
+.proj:last-child{border-bottom:1px solid var(--line);}
+.proj-row{
+  display:grid;grid-template-columns:70px 1fr auto;gap:18px;align-items:baseline;
+  padding:22px 0;
+}
+.proj-num{font-family:'IBM Plex Mono',monospace;color:var(--ink-faint);font-size:13px;}
+.proj-main h3{font-size:18px;margin-bottom:6px;}
+.proj-main .desc{color:var(--ink-dim);font-size:14px;max-width:560px;margin-bottom:10px;}
+.proj-tags{display:flex;flex-wrap:wrap;gap:7px;}
+.proj-tags span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--teal);}
+.proj-tags span::before{content:'#';}
+.proj-link{font-size:13px;color:var(--ink-dim);white-space:nowrap;align-self:start;}
+.proj-link:hover{color:var(--copper);}
+@media(max-width:640px){
+  .proj-row{grid-template-columns:1fr;gap:8px;}
+  .proj-num{display:none;}
+}
 
-    .section-title {
-      font-size: clamp(28px, 4.5vw, 42px);
-      font-weight: 700;
-      line-height: 1.15;
-      margin-bottom: 16px;
-    }
+/* ---- services ---- */
+#services{background:var(--bg-raised);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.currency-row{display:flex;align-items:center;gap:10px;margin-bottom:36px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);}
+.currency-row button{
+  background:transparent;border:1px solid var(--line);color:var(--ink-dim);
+  padding:5px 12px;border-radius:16px;cursor:pointer;font-family:inherit;font-size:12px;
+}
+.currency-row button.active{border-color:var(--copper);color:var(--copper);}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;}
+.tier{padding:30px 26px;border-left:1px solid var(--line);}
+.tier:first-child{border-left:none;}
+.tier .t-name{font-size:17px;font-weight:600;margin-bottom:4px;}
+.tier .t-sub{color:var(--ink-faint);font-size:12px;margin-bottom:18px;}
+.tier .t-price{font-family:'IBM Plex Mono',monospace;font-size:21px;color:var(--copper);margin-bottom:4px;}
+.tier .t-time{font-size:12px;color:var(--ink-faint);margin-bottom:20px;}
+.tier ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.tier li{font-size:13.5px;color:var(--ink-dim);padding-left:16px;position:relative;}
+.tier li::before{content:'—';position:absolute;left:0;color:var(--ink-faint);}
+.tier.mid{background:var(--bg-panel);}
+@media(max-width:760px){.tiers{grid-template-columns:1fr;}.tier{border-left:none;border-top:1px solid var(--line);}.tier:first-child{border-top:none;}}
 
-    .section-sub {
-      color: var(--text-muted);
-      max-width: 580px;
-      font-size: 16px;
-      margin-bottom: 44px;
-    }
+.addons{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius-m);overflow:hidden;margin:36px 0 44px;}
+.addon{background:var(--bg-raised);padding:16px 18px;}
+.addon .a-name{font-size:13.5px;font-weight:600;margin-bottom:4px;}
+.addon .a-desc{font-size:12.5px;color:var(--ink-faint);}
+.addon .a-price{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--copper);margin-top:6px;display:block;}
 
-    /* buttons */
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--accent-green);
-      color: #fff;
-      padding: 14px 30px;
-      border-radius: var(--radius-btn);
-      font-weight: 600;
-      font-size: 15px;
-      border: none;
-      transition: 0.2s;
-      box-shadow: 0 6px 14px rgba(30, 155, 110, 0.25);
-      cursor: pointer;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(30, 155, 110, 0.35);
-    }
+.cta-strip{
+  border:1px solid var(--line);border-radius:var(--radius-m);
+  padding:30px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;
+}
+.cta-strip h3{font-size:19px;margin-bottom:4px;}
+.cta-strip p{color:var(--ink-faint);font-size:13.5px;}
 
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      border-radius: var(--radius-btn);
-      border: 1px solid var(--border-light);
-      background: transparent;
-      color: var(--text-primary);
-      font-weight: 500;
-      font-size: 15px;
-      transition: 0.2s;
-      cursor: pointer;
-    }
-    .btn-secondary:hover {
-      border-color: var(--accent-blue);
-      background: var(--bg-surface-alt);
-    }
+/* ---- contact ---- */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:52px;}
+.c-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line);}
+.c-item:last-child{border-bottom:none;}
+.c-icon{width:32px;color:var(--copper);font-size:16px;padding-top:2px;}
+.c-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-faint);margin-bottom:2px;}
+.c-val{font-size:14.5px;}
+.reach-card{background:var(--bg-raised);border:1px solid var(--line);border-radius:var(--radius-m);padding:28px;}
+.reach-card h4{font-size:16px;margin-bottom:8px;}
+.reach-card p{color:var(--ink-faint);font-size:13.5px;margin-bottom:20px;}
 
-    /* nav */
-    nav {
-      background: var(--bg-surface);
-      border-bottom: 1px solid var(--border-light);
-      padding: 12px 0;
-      position: sticky;
-      top: 0;
-      z-index: 99;
-      backdrop-filter: blur(4px);
-      background: rgba(var(--bg-surface-rgb), 0.85);
-    }
-    .nav-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    .nav-brand {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 20px;
-    }
-    .nav-brand span { color: var(--accent-blue); }
+footer{border-top:1px solid var(--line);padding:26px 0;text-align:center;}
+footer p{color:var(--ink-faint);font-size:12.5px;font-family:'IBM Plex Mono',monospace;}
 
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-      align-items: center;
-    }
-    .nav-links a {
-      color: var(--text-secondary);
-      font-size: 14px;
-      font-weight: 500;
-      transition: 0.2s;
-    }
-    .nav-links a:hover { color: var(--text-primary); }
-
-    .theme-toggle {
-      background: var(--bg-surface-alt);
-      border: 1px solid var(--border-light);
-      border-radius: 40px;
-      padding: 6px 12px;
-      display: flex;
-      gap: 8px;
-      font-size: 14px;
-      cursor: pointer;
-      color: var(--text-secondary);
-      transition: 0.2s;
-    }
-    .theme-toggle i { font-size: 16px; }
-
-    .hamburger {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 24px;
-      color: var(--text-primary);
-      cursor: pointer;
-    }
-
-    /* hero */
-    .hero {
-      min-height: 80vh;
-      display: flex;
-      align-items: center;
-    }
-    .hero-content h1 {
-      font-size: clamp(38px, 7vw, 68px);
-      font-weight: 700;
-      line-height: 1.05;
-      margin-bottom: 6px;
-    }
-    .hero-content h1 em { color: var(--accent-gold); font-style: normal; }
-    .hero-role {
-      font-size: clamp(18px, 2.4vw, 26px);
-      color: var(--text-secondary);
-      font-weight: 500;
-      margin-bottom: 18px;
-      font-family: 'Space Grotesk', sans-serif;
-    }
-    .hero p {
-      font-size: 17px;
-      color: var(--text-muted);
-      max-width: 540px;
-      margin-bottom: 32px;
-    }
-    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
-    .hero-stats {
-      display: flex;
-      gap: 48px;
-      margin-top: 48px;
-      flex-wrap: wrap;
-    }
-    .stat-num {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 34px;
-      font-weight: 700;
-    }
-    .stat-num span { color: var(--accent-gold); }
-    .stat-label { font-size: 13px; color: var(--text-muted); }
-
-    /* about */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: center;
-    }
-    .about-photo {
-      width: 100%;
-      aspect-ratio: 4/5;
-      object-fit: cover;
-      border-radius: 24px;
-      background: var(--bg-surface-alt);
-      border: 2px solid var(--border-light);
-      box-shadow: var(--shadow-md);
-    }
-    .about-text p { color: var(--text-secondary); margin-bottom: 18px; }
-    .badge-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 20px;
-    }
-    .badge {
-      background: var(--bg-surface-alt);
-      border: 1px solid var(--border-light);
-      padding: 4px 14px;
-      border-radius: 40px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-secondary);
-    }
-
-    /* skills */
-    #skills { background: var(--bg-surface-alt); }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 12px;
-    }
-    .skill-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: 14px;
-      padding: 18px 18px;
-      box-shadow: var(--shadow-sm);
-    }
-    .skill-header {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 600;
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-    .skill-pct { color: var(--accent-gold); }
-    .skill-bar {
-      height: 6px;
-      background: var(--bg-surface-alt);
-      border-radius: 40px;
-      overflow: hidden;
-    }
-    .skill-fill {
-      height: 100%;
-      border-radius: 40px;
-      background: linear-gradient(90deg, var(--accent-blue), var(--accent-gold));
-    }
-
-    /* portfolio */
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 24px;
-    }
-    .port-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-card);
-      padding: 20px 20px 22px;
-      transition: 0.2s;
-      box-shadow: var(--shadow-sm);
-    }
-    .port-card:hover { transform: translateY(-4px); border-color: var(--accent-blue); }
-    .port-top {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-      margin-bottom: 12px;
-    }
-    .port-icon {
-      width: 44px;
-      height: 44px;
-      background: var(--bg-surface-alt);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent-blue);
-      font-size: 20px;
-    }
-    .port-title { font-weight: 700; font-size: 17px; }
-    .port-sub { font-size: 12px; color: var(--text-muted); }
-    .port-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 10px 0 12px;
-    }
-    .port-tag {
-      background: var(--bg-surface-alt);
-      border-radius: 40px;
-      padding: 2px 12px;
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--text-secondary);
-      border: 1px solid var(--border-light);
-    }
-    .port-link {
-      font-weight: 600;
-      font-size: 13px;
-      color: var(--accent-blue);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .port-link i { transition: 0.2s; }
-    .port-link:hover i { transform: translateX(4px); }
-
-    /* services */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
-      margin-bottom: 48px;
-    }
-    .svc-card {
-      background: var(--bg-card);
-      border-radius: var(--radius-card);
-      padding: 28px 26px;
-      border-left: 4px solid var(--accent-blue);
-      box-shadow: var(--shadow-sm);
-      position: relative;
-    }
-    .svc-card.business { border-left-color: var(--accent-gold); }
-    .svc-card.enterprise { border-left-color: var(--accent-green); }
-    .svc-popular {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: var(--accent-gold);
-      color: #0b1a2b;
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 3px 12px;
-      border-radius: 30px;
-    }
-    .svc-name { font-size: 20px; font-weight: 700; }
-    .svc-sub { color: var(--text-muted); font-size: 13px; margin-bottom: 4px; }
-    .svc-price {
-      font-size: 24px;
-      font-weight: 700;
-      margin: 6px 0 2px;
-    }
-    .svc-note { font-size: 12px; color: var(--text-muted); margin-bottom: 18px; }
-    .svc-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .svc-features li {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 14px;
-      color: var(--text-secondary);
-    }
-    .svc-features li::before {
-      content: "✓";
-      color: var(--accent-gold);
-      font-weight: 700;
-    }
-
-    .addon-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 14px;
-      margin: 28px 0 40px;
-    }
-    .addon-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: 14px;
-      padding: 16px 18px;
-      box-shadow: var(--shadow-sm);
-    }
-    .addon-item strong { color: var(--accent-blue); display: block; margin-bottom: 4px; font-size: 14px; }
-    .addon-item span { font-size: 13px; color: var(--text-muted); }
-
-    .wa-banner {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-light);
-      border-radius: 24px;
-      padding: 36px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 24px;
-      box-shadow: var(--shadow-md);
-    }
-    .wa-banner h3 { font-size: 24px; font-weight: 700; }
-    .wa-banner p { color: var(--text-muted); }
-
-    /* contact */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-    }
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: 14px;
-      padding: 14px 18px;
-      margin-bottom: 10px;
-    }
-    .contact-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg-surface-alt);
-      color: var(--accent-blue);
-    }
-    .contact-label { font-size: 11px; text-transform: uppercase; color: var(--text-muted); }
-    .contact-value { font-weight: 500; }
-
-    .quick-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: 24px;
-      padding: 32px 28px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    footer {
-      border-top: 1px solid var(--border-light);
-      padding: 32px 0;
-      text-align: center;
-      background: var(--bg-surface);
-      margin-top: 20px;
-    }
-    footer p { color: var(--text-muted); font-size: 13px; }
-
-    /* responsive */
-    @media (max-width: 820px) {
-      .about-grid, .contact-grid { grid-template-columns: 1fr; }
-      .about-photo { max-width: 300px; margin: 0 auto; }
-      .nav-links { display: none; flex-direction: column; background: var(--bg-surface); position: absolute; top: 68px; left: 0; width: 100%; padding: 20px; border-bottom: 1px solid var(--border-light); }
-      .nav-links.open { display: flex; }
-      .hamburger { display: block; }
-      .wa-banner { flex-direction: column; text-align: center; }
-    }
-    @media (max-width: 480px) {
-      .hero-actions { flex-direction: column; }
-      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
-    }
-  </style>
+@media(max-width:820px){
+  .hero{grid-template-columns:1fr;}
+  .about{grid-template-columns:1fr;}
+  .contact{grid-template-columns:1fr;}
+  .skill-list{grid-template-columns:repeat(2,1fr);}
+  .nav-links{
+    display:none;position:absolute;top:60px;left:0;width:100%;background:var(--bg);
+    flex-direction:column;padding:18px 24px;border-bottom:1px solid var(--line);
+  }
+  .nav-links.open{display:flex;}
+  .burger{display:block;}
+}
+@media(max-width:480px){
+  .skill-list{grid-template-columns:1fr;}
+  .hero-actions{flex-direction:column;align-items:stretch;}
+}
+</style>
 </head>
 <body>
 
-<nav>
-  <div class="nav-inner">
-    <div class="nav-brand">M<span>.</span>ON</div>
-    <button class="hamburger" id="ham" aria-label="menu"><i class="fas fa-bars"></i></button>
+<header>
+  <div class="nav-row">
+    <div class="nav-mark">okoro<b>.</b>dev</div>
+    <button class="burger" id="burger" aria-label="menu"><i class="fas fa-bars"></i></button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#hero">Home</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#skills">Stack</a></li>
+      <li><a href="#work">Work</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i><i class="fas fa-sun"></i></button></li>
+      <li><button class="theme-btn" id="themeBtn">paper mode</button></li>
     </ul>
   </div>
-</nav>
+</header>
 
-<!-- HERO -->
-<section class="hero" id="hero">
-  <div class="container">
-    <div class="hero-content">
-      <div class="eyebrow">Lagos · Remote · Available</div>
-      <h1>Michael <em>Okoro</em><br>Nnachi</h1>
-      <div class="hero-role">Fullstack Developer · Software Engineer</div>
-      <p>I craft fast, functional, and human-centered web solutions — from landing pages to full-scale platforms. Based in Lagos, working with clients globally.</p>
-      <div class="hero-actions">
-        <a href="https://wa.me/2349121311594" target="_blank" class="btn-primary"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
-        <a href="#portfolio" class="btn-secondary"><i class="fas fa-eye"></i> See work</a>
-      </div>
-      <div class="hero-stats">
-        <div><div class="stat-num">5<span>+</span></div><div class="stat-label">Years experience</div></div>
-        <div><div class="stat-num">20<span>+</span></div><div class="stat-label">Projects delivered</div></div>
-        <div><div class="stat-num">12<span>+</span></div><div class="stat-label">Technologies</div></div>
+<section class="hero wrap" id="hero">
+  <div>
+    <div class="kicker mono">Lagos, Nigeria — open to remote work</div>
+    <h1>Michael Okoro Nnachi</h1>
+    <div class="role mono">fullstack developer</div>
+    <p class="lede">I build web platforms end to end — backend logic, databases, and the interfaces people actually use. Nine years in, mostly for businesses that need something that works on day one and holds up after.</p>
+    <div class="hero-actions">
+      <a href="https://wa.me/2349121311594" target="_blank" class="btn btn-fill"><i class="fab fa-whatsapp"></i> Message on WhatsApp</a>
+      <a href="#work" class="btn btn-line">See recent work</a>
+    </div>
+  </div>
+  <div class="term">
+    <div class="term-bar"><span class="term-dot"></span><span class="term-dot"></span><span class="term-dot"></span></div>
+    <div class="term-body">
+      <div class="line"><span class="cmd">$</span> whoami</div>
+      <div class="line out">Michael Okoro Nnachi, fullstack developer</div>
+      <div class="line"><span class="cmd">$</span> years_experience</div>
+      <div class="line out">9</div>
+      <div class="line"><span class="cmd">$</span> stack</div>
+      <div class="line out">PHP, Laravel, Node.js, Python, React, Flutter, MySQL</div>
+      <div class="line"><span class="cmd">$</span> status</div>
+      <div class="line out">accepting new projects</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about">
+    <div class="about-card">
+      <div class="label mono">based in</div>
+      <div class="val">Lagos, Nigeria</div>
+      <div class="label mono">education</div>
+      <div class="val">HND, Computer Science — Yaba College of Technology</div>
+      <div class="label mono">also does</div>
+      <div class="val">IT support & sales, technical training, and records production as MO Neachi</div>
+    </div>
+    <div class="about-text">
+      <span class="idx mono">about</span>
+      <h2 style="font-size:26px;margin-bottom:16px;">Nine years of shipping things people rely on</h2>
+      <p>I started with plain HTML and CSS and grew into full-stack work — PHP and Laravel on the backend, React and Flutter on the front, Python where it's needed, MySQL underneath most of it. Most of my clients are small and mid-size businesses, some local, some further afield.</p>
+      <p>I also teach — I've trained developers through MicmanTech and Peakware Academy, so I'm used to explaining a decision, not just making it.</p>
+      <div class="chip-row">
+        <span class="chip">PHP / Laravel</span><span class="chip">React / Next.js</span><span class="chip">Node.js / Express</span>
+        <span class="chip">Python / Flask</span><span class="chip">Flutter</span><span class="chip">MySQL</span><span class="chip">WordPress</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="container">
-    <div class="about-grid">
-      <div><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500' viewBox='0 0 400 500'%3E%3Crect width='400' height='500' fill='%231a2332'/%3E%3Ccircle cx='200' cy='180' r='80' fill='%232d3e54'/%3E%3Ccircle cx='160' cy='160' r='10' fill='%238fa0b5'/%3E%3Ccircle cx='240' cy='160' r='10' fill='%238fa0b5'/%3E%3Cpath d='M160 220 Q200 250 240 220' stroke='%238fa0b5' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Crect x='120' y='320' width='160' height='40' rx='8' fill='%232d3e54'/%3E%3Crect x='100' y='380' width='200' height='30' rx='6' fill='%232d3e54'/%3E%3C/svg%3E" alt="Michael" class="about-photo"></div>
-      <div class="about-text">
-        <div class="eyebrow">About</div>
-        <h2 class="section-title">Code that connects</h2>
-        <p>My journey started with HTML & CSS, and grew into full-stack development with PHP, React, Python, and more. I love solving real problems with clean, maintainable code.</p>
-        <p>I bring a designer's eye and an engineer's discipline — every project is an opportunity to blend aesthetics with performance.</p>
-        <div class="badge-group">
-          <span class="badge">PHP / Laravel</span><span class="badge">React</span><span class="badge">Python</span>
-          <span class="badge">Node.js</span><span class="badge">PostgreSQL</span><span class="badge">NestJS</span>
-          <span class="badge">Canva</span><span class="badge">WordPress</span><span class="badge">MySQL</span>
+<section id="skills">
+  <div class="wrap">
+    <span class="idx mono">stack</span>
+    <div class="head" style="margin-bottom:36px;">
+      <h2>What I reach for</h2>
+      <p>Rough sense of day-to-day depth, not a certificate.</p>
+    </div>
+    <div class="skill-list">
+      <div class="skill-cell"><div class="skill-top"><span>PHP</span><span class="n">senior</span></div><div class="skill-track"><div class="skill-fill" style="width:92%"></div></div></div>
+      <div class="skill-cell"><div class="skill-top"><span>HTML / CSS</span><span class="n">senior</span></div><div class="skill-track"><div class="skill-fill" style="width:90%"></div></div></div>
+      <div class="skill-cell"><div class="skill-top"><span>WordPress</span><span class="n">senior</span></div><div class="skill-track"><div class="skill-fill" style="width:88%"></div></div></div>
+      <div class="skill-cell"><div class="skill-top"><span>MySQL</span><span class="n">strong</span></div><div class="skill-track"><div class="skill-fill" style="width:82%"></div></div></div>
+      <div class="skill-cell"><div class="skill-top"><span>Laravel</span><span class="n">strong</span></div><div class="skill-track"><div class="skill-fill" style="width:78%"></div></div></div>
+      <div class="skill-cell"><div class="skill-top"><span>Python</span><span class="n">strong</span></div><div class="skill-track"><div class="skill-fill" style="width:78%"></div></div></div>
+      <div class="skill-cell"><div class="skill-top"><span>Express.js</span><span class="n">working</span></div><div class="skill-track"><div class="skill-fill" style="width:74%"></div></div></div>
+      <div class="skill-cell"><div class="skill-top"><span>React</span><span class="n">working</span></div><div class="skill-track"><div class="skill-fill" style="width:72%"></div></div></div>
+      <div class="skill-cell"><div class="skill-top"><span>PostgreSQL</span><span class="n">working</span></div><div class="skill-track"><div class="skill-fill" style="width:70%"></div></div></div>
+      <div class="skill-cell"><div class="skill-top"><span>Flutter</span><span class="n">working</span></div><div class="skill-track"><div class="skill-fill" style="width:68%"></div></div></div>
+      <div class="skill-cell"><div class="skill-top"><span>Git</span><span class="n">working</span></div><div class="skill-track"><div class="skill-fill" style="width:76%"></div></div></div>
+      <div class="skill-cell"><div class="skill-top"><span>Canva / design</span><span class="n">working</span></div><div class="skill-track"><div class="skill-fill" style="width:80%"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <span class="idx mono">work</span>
+    <div class="head" style="margin-bottom:20px;">
+      <h2>Recent projects</h2>
+      <p>A handful of the platforms I've built or maintained.</p>
+    </div>
+
+    <div class="proj-list">
+      <div class="proj">
+        <div class="proj-row">
+          <div class="proj-num mono">01</div>
+          <div class="proj-main">
+            <h3>Heritage Property Concierge</h3>
+            <div class="desc">Property monitoring service for the Nigerian diaspora — lets owners abroad keep tabs on property back home. I worked across the project lifecycle: scoping, wireframes, and development.</div>
+            <div class="proj-tags"><span>php</span><span>mysql</span><span>uiux</span></div>
+          </div>
+          <a href="https://hcpnigeria.com" target="_blank" class="proj-link">hcpnigeria.com ↗</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-row">
+          <div class="proj-num mono">02</div>
+          <div class="proj-main">
+            <h3>BigBack Haulage</h3>
+            <div class="desc">Site and backend for a trucking and haulage company — fleet-facing pages, booking flow, and ongoing SEO and PHP work.</div>
+            <div class="proj-tags"><span>php</span><span>react</span><span>mysql</span></div>
+          </div>
+          <a href="#" class="proj-link">bigbackhaulage.com ↗</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-row">
+          <div class="proj-num mono">03</div>
+          <div class="proj-main">
+            <h3>Peakware Academy</h3>
+            <div class="desc">Learning platform with course management and a student dashboard, built to stay usable on slow connections.</div>
+            <div class="proj-tags"><span>php</span><span>bootstrap</span><span>mysql</span></div>
+          </div>
+          <a href="#" class="proj-link">Visit ↗</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-row">
+          <div class="proj-num mono">04</div>
+          <div class="proj-main">
+            <h3>Tavohost</h3>
+            <div class="desc">Server setup and hardening for a web hosting client — Nginx, Apache, and ongoing performance tuning.</div>
+            <div class="proj-tags"><span>linux</span><span>nginx</span><span>apache</span></div>
+          </div>
+          <a href="#" class="proj-link">Visit ↗</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-row">
+          <div class="proj-num mono">05</div>
+          <div class="proj-main">
+            <h3>ECAUDIT</h3>
+            <div class="desc">Audit certification platform for a European client — secure user flows and reporting.</div>
+            <div class="proj-tags"><span>php</span><span>mysql</span></div>
+          </div>
+          <a href="#" class="proj-link">Visit ↗</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-row">
+          <div class="proj-num mono">06</div>
+          <div class="proj-main">
+            <h3>Sankids Academy</h3>
+            <div class="desc">A friendly, responsive site for a children's academy.</div>
+            <div class="proj-tags"><span>wordpress</span><span>php</span></div>
+          </div>
+          <a href="#" class="proj-link">Visit ↗</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SKILLS (updated with Canva, Postgres, NestJS) -->
-<section id="skills">
-  <div class="container">
-    <div class="eyebrow">Expertise</div>
-    <h2 class="section-title">My tech stack</h2>
-    <p class="section-sub">From frontend to backend, databases to design — tools I work with daily.</p>
-    <div class="skills-grid">
-      <div class="skill-card"><div class="skill-header"><span>PHP</span><span class="skill-pct">95%</span></div><div class="skill-bar"><div class="skill-fill" style="width:95%"></div></div></div>
-      <div class="skill-card"><div class="skill-header"><span>HTML / CSS</span><span class="skill-pct">92%</span></div><div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div></div>
-      <div class="skill-card"><div class="skill-header"><span>WordPress</span><span class="skill-pct">90%</span></div><div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div></div>
-      <div class="skill-card"><div class="skill-header"><span>Python</span><span class="skill-pct">82%</span></div><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
-      <div class="skill-card"><div class="skill-header"><span>Laravel</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
-      <div class="skill-card"><div class="skill-header"><span>MySQL</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
-      <div class="skill-card"><div class="skill-header"><span>PostgreSQL</span><span class="skill-pct">78%</span></div><div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div></div>
-      <div class="skill-card"><div class="skill-header"><span>NestJS</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
-      <div class="skill-card"><div class="skill-header"><span>Canva</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
-      <div class="skill-card"><div class="skill-header"><span>React</span><span class="skill-pct">76%</span></div><div class="skill-bar"><div class="skill-fill" style="width:76%"></div></div></div>
-      <div class="skill-card"><div class="skill-header"><span>Git</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div> 
-       <div class="skill-card"><div class="skill-header"><span>Express.js</span><span class="skill-pct">80%</span></div><div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div></div>
-      <div class="skill-card"><div class="skill-header"><span>AI / ML</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+<section id="services">
+  <div class="wrap">
+    <span class="idx mono">services</span>
+    <div class="head" style="margin-bottom:8px;">
+      <h2>Packages</h2>
+      <p>Fixed starting points — most projects land inside a range depending on scope.</p>
+    </div>
+    <div class="currency-row">
+      <span>Showing prices in:</span>
+      <button id="btnNGN" class="mono">NGN</button>
+      <button id="btnUSD" class="mono">USD</button>
+      <span id="currencyNote" style="color:var(--ink-faint);"></span>
+    </div>
+
+    <div class="tiers">
+      <div class="tier">
+        <div class="t-name">Starter</div>
+        <div class="t-sub">A site that's live and working</div>
+        <div class="t-price"><span class="price" data-ngn="₦120,000 – ₦200,000" data-usd="$150 – $250">₦120,000 – ₦200,000</span></div>
+        <div class="t-time">One-time · ~5 days</div>
+        <ul>
+          <li>Single landing page</li>
+          <li>Mobile-first responsive build</li>
+          <li>WhatsApp and social links</li>
+          <li>Basic on-page SEO</li>
+          <li>Contact form</li>
+        </ul>
+      </div>
+      <div class="tier mid">
+        <div class="t-name">Business</div>
+        <div class="t-sub">A full site with a working backend</div>
+        <div class="t-price"><span class="price" data-ngn="₦350,000 – ₦700,000" data-usd="$500 – $1,200">₦350,000 – ₦700,000</span></div>
+        <div class="t-time">One-time · 3–4 weeks</div>
+        <ul>
+          <li>Multi-page site</li>
+          <li>Admin dashboard</li>
+          <li>Payment integration</li>
+          <li>PHP/Laravel or React build</li>
+          <li>1 month of support after launch</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="t-name">Custom</div>
+        <div class="t-sub">A product, not a website</div>
+        <div class="t-price"><span class="price" data-ngn="from ₦900,000" data-usd="from $1,500">from ₦900,000</span></div>
+        <div class="t-time">Scoped and quoted</div>
+        <ul>
+          <li>Web app or SaaS build</li>
+          <li>Third-party API integrations</li>
+          <li>Mobile app in Flutter</li>
+          <li>Database architecture</li>
+          <li>Ongoing maintenance available</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="addons">
+      <div class="addon">
+        <div class="a-name">Ongoing maintenance</div>
+        <div class="a-desc">Updates, backups, and small fixes</div>
+        <span class="a-price price" data-ngn="from ₦30,000/mo" data-usd="from $35/mo">from ₦30,000/mo</span>
+      </div>
+      <div class="addon">
+        <div class="a-name">Graphic design</div>
+        <div class="a-desc">Brand identity and UI assets</div>
+        <span class="a-price price" data-ngn="quoted per job" data-usd="quoted per job">quoted per job</span>
+      </div>
+      <div class="addon">
+        <div class="a-name">QA & testing</div>
+        <div class="a-desc">Functional testing and bug reports</div>
+        <span class="a-price price" data-ngn="quoted per job" data-usd="quoted per job">quoted per job</span>
+      </div>
+    </div>
+
+    <div class="cta-strip">
+      <div><h3>Have a project in mind?</h3><p>Free 30-minute call to talk through scope.</p></div>
+      <a href="https://wa.me/2349121311594" target="_blank" class="btn btn-fill"><i class="fab fa-whatsapp"></i> Start on WhatsApp</a>
     </div>
   </div>
 </section>
 
-<!-- PORTFOLIO -->
-<section id="portfolio">
-  <div class="container">
-    <div class="eyebrow">Portfolio</div>
-    <h2 class="section-title">Selected work</h2>
-    <p class="section-sub">Real projects — e-learning, logistics, hosting, audit platforms.</p>
-    <div class="portfolio-grid">
-      <div class="port-card"><div class="port-top"><div class="port-icon"><i class="fas fa-truck"></i></div><div><div class="port-title">BigBack Haulage</div><div class="port-sub">Trucking company</div></div></div><div class="port-tags"><span class="port-tag">React</span><span class="port-tag">PHP</span><span class="port-tag">MySQL</span></div><p style="font-size:14px;color:var(--text-secondary);">Full platform with fleet management UI and booking system.</p><a href="#" class="port-link">Visit site <i class="fas fa-arrow-right"></i></a></div>
-      <div class="port-card"><div class="port-top"><div class="port-icon"><i class="fas fa-graduation-cap"></i></div><div><div class="port-title">Peakware Academy</div><div class="port-sub">E-learning</div></div></div><div class="port-tags"><span class="port-tag">PHP</span><span class="port-tag">Bootstrap</span><span class="port-tag">MySQL</span></div><p style="font-size:14px;color:var(--text-secondary);">Responsive LMS with course management and student dashboard.</p><a href="#" class="port-link">Visit site <i class="fas fa-arrow-right"></i></a></div>
-      <div class="port-card"><div class="port-top"><div class="port-icon"><i class="fas fa-server"></i></div><div><div class="port-title">Tavohost</div><div class="port-sub">Web hosting</div></div></div><div class="port-tags"><span class="port-tag">Linux</span><span class="port-tag">Nginx</span><span class="port-tag">Apache</span></div><p style="font-size:14px;color:var(--text-secondary);">Server configuration, security, and performance optimization.</p><a href="#" class="port-link">Visit site <i class="fas fa-arrow-right"></i></a></div>
-      <div class="port-card"><div class="port-top"><div class="port-icon"><i class="fas fa-certificate"></i></div><div><div class="port-title">ECAUDIT</div><div class="port-sub">Audit certification</div></div></div><div class="port-tags"><span class="port-tag">PHP</span><span class="port-tag">MySQL</span><span class="port-tag">Server</span></div><p style="font-size:14px;color:var(--text-secondary);">European audit platform with secure user flows and reporting.</p><a href="#" class="port-link">Visit site <i class="fas fa-arrow-right"></i></a></div>
-      <div class="port-card"><div class="port-top"><div class="port-icon"><i class="fas fa-music"></i></div><div><div class="port-title">Solvibes</div><div class="port-sub">Creative platform</div></div></div><div class="port-tags"><span class="port-tag">PHP</span><span class="port-tag">JS</span><span class="port-tag">CSS</span></div><p style="font-size:14px;color:var(--text-secondary);">Custom digital space with dynamic content and modern UI.</p><a href="#" class="port-link">Visit site <i class="fas fa-arrow-right"></i></a></div>
-      <div class="port-card"><div class="port-top"><div class="port-icon"><i class="fas fa-child"></i></div><div><div class="port-title">Sankids Academy</div><div class="port-sub">Children's education</div></div></div><div class="port-tags"><span class="port-tag">WordPress</span><span class="port-tag">PHP</span></div><p style="font-size:14px;color:var(--text-secondary);">Friendly, responsive website for a kids' academy.</p><a href="#" class="port-link">Visit site <i class="fas fa-arrow-right"></i></a></div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services" style="background:var(--bg-surface-alt);">
-  <div class="container">
-    <div class="eyebrow">Services & pricing</div>
-    <h2 class="section-title">What I build for you</h2>
-    <p class="section-sub">Clear packages. Mobile-first, performance-driven, and backed by support.</p>
-    <div class="services-grid">
-      <div class="svc-card"><div class="svc-name">Starter</div><div class="svc-sub">Launch ready</div><div class="svc-price">₦120k – ₦200k</div><div class="svc-note">One-time · 5 days</div><ul class="svc-features"><li>Landing page</li><li>Responsive design</li><li>WhatsApp + social CTAs</li><li>Basic SEO</li><li>Contact form</li></ul></div>
-      <div class="svc-card business"><div class="svc-popular">Popular</div><div class="svc-name">Business</div><div class="svc-sub">Full web presence</div><div class="svc-price">₦350k – ₦700k</div><div class="svc-note">One-time · 3–4 weeks</div><ul class="svc-features"><li>Multi-page site</li><li>Admin dashboard</li><li>Payment integration</li><li>PHP / Laravel / React</li><li>1 month support</li></ul></div>
-      <div class="svc-card enterprise"><div class="svc-name">Enterprise</div><div class="svc-sub">Custom systems</div><div class="svc-price">₦900k+</div><div class="svc-note">Custom quote</div><ul class="svc-features"><li>Web app / SaaS</li><li>API integrations</li><li>Mobile app (Ionic)</li><li>Database architecture</li><li>AI / ML features</li><li>Ongoing maintenance</li></ul></div>
-    </div>
-
-    <div class="addon-grid">
-      <div class="addon-item"><strong><i class="fas fa-robot"></i> AI Features</strong><span>Chatbots, smart search, automation</span></div>
-      <div class="addon-item"><strong><i class="fas fa-shield-alt"></i> QA & Testing</strong><span>Functional testing & bug reports</span></div>
-      <div class="addon-item"><strong><i class="fas fa-sync-alt"></i> Maintenance</strong><span>From ₦30k/month</span></div>
-      <div class="addon-item"><strong><i class="fas fa-palette"></i> Graphic Design</strong><span>Brand identity, UI/UX, Canva</span></div>
-    </div>
-
-    <div class="wa-banner">
-      <div><h3>Ready to start?</h3><p>Free 30-min consultation. Fast response.</p></div>
-      <a href="https://wa.me/2349121311594" target="_blank" class="btn-primary"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
 <section id="contact">
-  <div class="container">
-    <div class="eyebrow">Contact</div>
-    <h2 class="section-title">Let's talk</h2>
-    <div class="contact-grid">
-      <div>
-        <h3 style="font-size:22px;margin-bottom:12px;">Reach out anytime</h3>
-        <p style="color:var(--text-muted);margin-bottom:28px;">WhatsApp is fastest, but email works too.</p>
-        <div class="contact-item"><div class="contact-icon"><i class="fab fa-whatsapp"></i></div><div><div class="contact-label">WhatsApp</div><div class="contact-value">+234 912 131 1594</div></div></div>
-        <div class="contact-item"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div><div class="contact-label">Email</div><div class="contact-value">mike.web.dever@gmail.com</div></div></div>
-        <div class="contact-item"><div class="contact-icon"><i class="fab fa-github"></i></div><div><div class="contact-label">GitHub</div><div class="contact-value">@micman134</div></div></div>
-        <div class="contact-item"><div class="contact-icon"><i class="fab fa-linkedin"></i></div><div><div class="contact-label">LinkedIn</div><div class="contact-value">Michael Okoro Nnachi</div></div></div>
-      </div>
-      <div class="quick-card">
-        <h4 style="font-size:18px;margin-bottom:6px;">Send a quick message</h4>
-        <p style="font-size:14px;color:var(--text-muted);margin-bottom:20px;">Tap to start a WhatsApp conversation.</p>
-        <a href="https://wa.me/2349121311594" target="_blank" class="btn-primary" style="width:100%;justify-content:center;margin-bottom:16px;"><i class="fab fa-whatsapp"></i> Open WhatsApp</a>
-        <div style="border-top:1px solid var(--border-light);padding-top:16px;text-align:center;"><span style="color:var(--text-muted);font-size:12px;">or email</span><br><a href="mailto:mike.web.dever@gmail.com" style="color:var(--accent-blue);font-weight:600;">mike.web.dever@gmail.com</a></div>
-      </div>
+  <div class="wrap contact">
+    <div>
+      <span class="idx mono">contact</span>
+      <h2 style="font-size:26px;margin-bottom:20px;">Let's talk</h2>
+      <div class="c-item"><div class="c-icon"><i class="fab fa-whatsapp"></i></div><div><div class="c-label mono">whatsapp</div><div class="c-val">+234 912 131 1594</div></div></div>
+      <div class="c-item"><div class="c-icon"><i class="fas fa-envelope"></i></div><div><div class="c-label mono">email</div><div class="c-val">mike.web.dever@gmail.com</div></div></div>
+      <div class="c-item"><div class="c-icon"><i class="fab fa-github"></i></div><div><div class="c-label mono">github</div><div class="c-val">@micman134</div></div></div>
+      <div class="c-item"><div class="c-icon"><i class="fas fa-globe"></i></div><div><div class="c-label mono">portfolio</div><div class="c-val">michael-o-n.netlify.app</div></div></div>
+    </div>
+    <div class="reach-card">
+      <h4>Fastest way to reach me</h4>
+      <p>WhatsApp usually gets a same-day reply. Email works too if you'd rather write it out.</p>
+      <a href="https://wa.me/2349121311594" target="_blank" class="btn btn-fill" style="width:100%;justify-content:center;margin-bottom:14px;"><i class="fab fa-whatsapp"></i> Open WhatsApp</a>
+      <a href="mailto:mike.web.dever@gmail.com" class="btn btn-line" style="width:100%;justify-content:center;">mike.web.dever@gmail.com</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="container"><div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;">M<span style="color:var(--accent-blue);">.</span>O<span style="color:var(--accent-blue);">.</span>N</div><p>&copy; <span id="yr"></span> Michael Okoro Nnachi</p></div>
+  <p>&copy; <span id="yr"></span> Michael Okoro Nnachi · Lagos, Nigeria</p>
 </footer>
 
 <script>
-  // year
-  document.getElementById('yr').textContent = new Date().getFullYear();
+document.getElementById('yr').textContent = new Date().getFullYear();
 
-  // theme toggle
-  const toggle = document.getElementById('themeToggle');
-  const currentTheme = localStorage.getItem('theme') || 'light';
-  document.documentElement.setAttribute('data-theme', currentTheme);
-  toggle.innerHTML = currentTheme === 'dark' ? '<i class="fas fa-sun"></i><i class="fas fa-moon"></i>' : '<i class="fas fa-moon"></i><i class="fas fa-sun"></i>';
-  toggle.addEventListener('click', () => {
-    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    toggle.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i><i class="fas fa-moon"></i>' : '<i class="fas fa-moon"></i><i class="fas fa-sun"></i>';
-  });
+// theme
+const themeBtn = document.getElementById('themeBtn');
+themeBtn.addEventListener('click', () => {
+  const isPaper = document.documentElement.getAttribute('data-theme') === 'paper';
+  document.documentElement.setAttribute('data-theme', isPaper ? '' : 'paper');
+  themeBtn.textContent = isPaper ? 'paper mode' : 'ink mode';
+});
 
-  // mobile nav
-  document.getElementById('ham').addEventListener('click', () => {
-    document.getElementById('navLinks').classList.toggle('open');
-  });
-  document.querySelectorAll('#navLinks a').forEach(link => link.addEventListener('click', () => {
-    document.getElementById('navLinks').classList.remove('open');
-  }));
+// mobile nav
+document.getElementById('burger').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('#navLinks a').forEach(a => a.addEventListener('click', () => {
+  document.getElementById('navLinks').classList.remove('open');
+}));
+
+// ---- currency by country ----
+// Nigerian visitors see Naira pricing; everyone else sees USD.
+// International USD rates are set deliberately (not a straight NGN conversion) —
+// update the ipapi lookup or the rates below as needed.
+const priceEls = document.querySelectorAll('.price');
+const btnNGN = document.getElementById('btnNGN');
+const btnUSD = document.getElementById('btnUSD');
+const note = document.getElementById('currencyNote');
+
+function setCurrency(code, auto){
+  priceEls.forEach(el => { el.textContent = code === 'NGN' ? el.dataset.ngn : el.dataset.usd; });
+  btnNGN.classList.toggle('active', code === 'NGN');
+  btnUSD.classList.toggle('active', code === 'USD');
+  note.textContent = auto ? '(detected automatically)' : '';
+}
+
+btnNGN.addEventListener('click', () => setCurrency('NGN', false));
+btnUSD.addEventListener('click', () => setCurrency('USD', false));
+
+// default to NGN until/unless geolocation says otherwise
+setCurrency('NGN', false);
+
+fetch('https://ipapi.co/json/')
+  .then(r => r.ok ? r.json() : Promise.reject())
+  .then(data => {
+    if (data && data.country_code && data.country_code !== 'NG') {
+      setCurrency('USD', true);
+    } else {
+      setCurrency('NGN', true);
+    }
+  })
+  .catch(() => { /* geolocation blocked or failed — leave default NGN, buttons still work */ });
 </script>
 </body>
 </html>
